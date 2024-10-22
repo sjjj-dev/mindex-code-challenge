@@ -1,3 +1,73 @@
+# Added EndPoints
+
+```
+* CREATE
+    * HTTP Method: POST 
+    * URL: localhost:8080/compensation
+    * PAYLOAD: Compensation
+    * RESPONSE: Compensation
+
+* READ
+    * HTTP Method: GET 
+    * URL: localhost:8080/reporting-structure/{id}
+    * RESPONSE: ReportingStructure
+
+    * HTTP Method: GET 
+    * URL: localhost:8080/compensation/{id}
+    * RESPONSE: Compensation
+
+```
+
+Sample Compensation Payload for `POST localhost:8080/compensation`
+```
+{
+    "employeeId" : "16a596ae-edd3-4847-99fe-c4518e82c86f",
+    "salary": 60000,
+    "effectiveDate": "2024-12-15"
+}
+```
+
+Sample Reporting Structure Response for `GET localhost:8080/reporting-structure/16a596ae-edd3-4847-99fe-c4518e82c86f`
+```
+{
+    "employee": {
+        "employeeId": "16a596ae-edd3-4847-99fe-c4518e82c86f",
+        "firstName": "John",
+        "lastName": "Lennon",
+        "position": "Development Manager",
+        "department": "Engineering",
+        "directReports": [
+            {
+                "employeeId": "b7839309-3348-463b-a7e3-5de1c168beb3",
+                "firstName": null,
+                "lastName": null,
+                "position": null,
+                "department": null,
+                "directReports": null
+            },
+            {
+                "employeeId": "03aa1462-ffa9-4978-901b-7c001562cf6f",
+                "firstName": null,
+                "lastName": null,
+                "position": null,
+                "department": null,
+                "directReports": null
+            }
+        ]
+    },
+    "numberOfReports": 4
+}
+```
+
+Sample Compensation Response for `GET localhost:8080/compensation/16a596ae-edd3-4847-99fe-c4518e82c86f`
+```
+{
+    "employeeId" : "16a596ae-edd3-4847-99fe-c4518e82c86f",
+    "salary": 60000,
+    "effectiveDate": "2024-12-15"
+}
+```
+
 # Coding Challenge
 ## What's Provided
 A simple [Spring Boot](https://projects.spring.io/spring-boot/) web application has been created and bootstrapped with data. The application contains 
@@ -28,13 +98,6 @@ The following endpoints are available to use:
     * URL: localhost:8080/employee/{id}
     * PAYLOAD: Employee
     * RESPONSE: Employee
-```
-Additions
-```
-* READ
-    * HTTP Method: GET 
-    * URL: localhost:8080/reporting-structure/{id}
-    * RESPONSE: ReportingStructure
 ```
 
 The Employee has a JSON schema of:
