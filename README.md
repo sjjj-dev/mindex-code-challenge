@@ -29,6 +29,13 @@ The following endpoints are available to use:
     * PAYLOAD: Employee
     * RESPONSE: Employee
 ```
+Additions
+```
+* READ
+    * HTTP Method: GET 
+    * URL: localhost:8080/reporting-structure/{id}
+    * RESPONSE: ReportingStructure
+```
 
 The Employee has a JSON schema of:
 ```json
