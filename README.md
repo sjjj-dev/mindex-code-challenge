@@ -1,5 +1,5 @@
 # Notes on Challenge Completion
-I completed [Task 1](#task-1) and [Task 2](#task-2) as describe belowed. Information on new endpoints  and how to use the additions to the API are [here](#how-to-run). I also added some very basic test cases for the services.
+I completed [Task 1](#task-1-1) and [Task 2](#task-2-1) as describe belowed. Information on new endpoints  and how to use the additions to the API are [here](#how-to-run). I also added some very basic test cases for the services.
 
 ## Design and Implementation Choices Explained
 I haven't really worked with Spring Boot before, so I heavily leveraged the existing Employee classes to create the Reporting Structure and Compensation classes. My process was basically copying the Employee classes, removing the parts that were unecessary for each task, e.g. removed create and update code for Reporting Structure, and adding the minimal necessary changes and logic to accomplish the each task. This also helped to maintain consistency and readablity throughout the project.
@@ -14,7 +14,7 @@ Because the Employee objects stored in the field `directReports` is initalized w
 This was even easier than Task 1. It probably would've been better design for me to add the data as a new field to the Employee table, but since I don't know Spring Boot well and didn't want to touch the existing classes, I just created a new Compensation table in the same way the Employee table was created. Compensation also uses employeeId as its primary key and doesn't generate new ones. This means Compensation data can only be added after Employees are created. This makes sense and links Compensation to Employee objects through the shared key.
 
 ## How to Run
-The application may be executed by running `gradlew bootRun`. Test may be run by using `gradlew test`.
+The application may be executed by running `gradlew bootRun`. Tests may be run by using `gradlew test`.
 
 ### Added EndPoints
 ```
