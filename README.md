@@ -1,5 +1,22 @@
-# Added EndPoints
+# Notes on Challenge Completion
+I completed [Task 1](#task-1) and [Task 2](#task-2) as describe belowed. Information on new endpoints  and how to use the additions to the API are [here](#how-to-run). I also added some very basic test cases for the services.
 
+## Design and Implementation Choices Explained
+I haven't really worked with Spring Boot before, so I heavily leveraged the existing Employee classes to create the Reporting Structure and Compensation classes. My process was basically copying the Employee classes, removing the parts that were unecessary for each task, e.g. removed create and update code for Reporting Structure, and adding the minimal necessary changes and logic to accomplish the each task. This also helped to maintain consistency and readablity throughout the project.
+
+### Task 1
+I create a Reporting Structure object with an `employee` field and `numberOfReports` field as asked. This data is not stored in the database; the service creates a new Reporting Structure everytime the data is requested, as per the task requirements. To calculate the `numberOfReports`, I wrote a simple function that recursively counts child reporters. 
+
+Because the Employee objects stored in the field `directReports` is initalized with only the `employeeId`, all the other fields in these objects are null. I had to query the employee table everytime to get the more information on the child reporters, including the `directReports` field. I think this is a misleading design. A bigger issue though is that I don't think this design follows best practices for one-to-many relationships. I think the child reporters should point the parents they're reporting to rather than the other way around as it is currently. I didn't implement these changes though in the interest of time and not wanting to break things.
+
+### Task 2
+
+This was even easier than Task 1. It probably would've been better design for me to add the data as a new field to the Employee table, but since I don't know Spring Boot well and didn't want to touch the existing classes, I just created a new Compensation table in the same way the Employee table was created. Compensation also uses employeeId as its primary key and doesn't generate new ones. This means Compensation data can only be added after Employees are created. This makes sense and links Compensation to Employee objects through the shared key.
+
+## How to Run
+The application may be executed by running `gradlew bootRun`. Test may be run by using `gradlew test`.
+
+### Added EndPoints
 ```
 * CREATE
     * HTTP Method: POST 
@@ -18,7 +35,8 @@
 
 ```
 
-Sample Compensation Payload for `POST localhost:8080/compensation`
+### Example Requests and Responses
+- Sample Compensation Payload and Response for `POST localhost:8080/compensation`
 ```
 {
     "employeeId" : "16a596ae-edd3-4847-99fe-c4518e82c86f",
@@ -27,7 +45,7 @@ Sample Compensation Payload for `POST localhost:8080/compensation`
 }
 ```
 
-Sample Reporting Structure Response for `GET localhost:8080/reporting-structure/16a596ae-edd3-4847-99fe-c4518e82c86f`
+- Sample Reporting Structure Response for `GET localhost:8080/reporting-structure/16a596ae-edd3-4847-99fe-c4518e82c86f`
 ```
 {
     "employee": {
@@ -59,7 +77,7 @@ Sample Reporting Structure Response for `GET localhost:8080/reporting-structure/
 }
 ```
 
-Sample Compensation Response for `GET localhost:8080/compensation/16a596ae-edd3-4847-99fe-c4518e82c86f`
+- Sample Compensation Response for `GET localhost:8080/compensation/16a596ae-edd3-4847-99fe-c4518e82c86f`
 ```
 {
     "employeeId" : "16a596ae-edd3-4847-99fe-c4518e82c86f",

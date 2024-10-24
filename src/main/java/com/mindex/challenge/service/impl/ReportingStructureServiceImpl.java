@@ -42,12 +42,9 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
             return numberOfReports;
         }
 
-        //Only EmployeeId is contained in the directReports Employee objects, so we must search the repository to get child reporters
-        //This makes sense because chains of these directReports lists of child reporters would get too long
-        //I think making directReports a list of Strings (of just ids) rather than Employees would make this clearer
-        //Either way, storing these lists inside tables doesn't follow best database practices for One-to-Many or Many-to-Many relations
         for (Employee directReport : employee.getDirectReports()){
             numberOfReports++;
+            //Recursively count grandchild direct reporters of child direct reporters until all reporters are found
             numberOfReports += getNumberOfReports(employeeRepository.findByEmployeeId(directReport.getEmployeeId()));
         }
 
